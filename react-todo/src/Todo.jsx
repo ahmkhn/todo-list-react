@@ -5,11 +5,32 @@ function Todo(){
     function handleAdd(){
         const textTask = document.getElementById("enter-inp").value;
         document.getElementById("enter-inp").value="";
-        setTask(t=>setTask(textTask));
-        setTaskArr(arr=>[...taskArr,textTask]);
+        if(textTask!=""){
+            setTask(t=>setTask(textTask));
+            setTaskArr(arr=>[...taskArr,textTask]);
+        }
     }
     function handleRemove(index){
         setTaskArr(r=>taskArr.filter((_, i) => i !== index));
+    }
+    function moveTaskUp(index){
+        const updatedArray=[...taskArr];
+        const taskBefore=updatedArray[index-1];
+        if(taskBefore!=null){
+            updatedArray[index-1]=updatedArray[index];
+            updatedArray[index]=taskBefore;
+        }
+        setTaskArr(c=>updatedArray);
+    }
+    function moveTaskDown(index){
+        const updatedArray=[...taskArr];
+        const taskAfter=updatedArray[index+1];
+        if(taskAfter!=null){
+            updatedArray[index+1]=updatedArray[index];
+            updatedArray[index]=taskAfter;
+            console.log("hello");
+        }
+        setTaskArr(c=>updatedArray);
     }
     return(
         <>
@@ -24,7 +45,9 @@ function Todo(){
                         {taskArr.map((element,index)=>
                         <li className="list-elements" key={index}>
                             {element}
-                            <button className="remove-button" onClick={()=>handleRemove(index)}>X</button>
+                            <button className="remove-button" onClick={()=>handleRemove(index)}>❌</button>
+                            <button className="take-up" onClick={()=>moveTaskUp(index)}>👆</button>
+                            <button className="take-down" onClick={()=>moveTaskDown(index)}>👇</button>
                         </li>)}
                         </ul>
                 </div>
