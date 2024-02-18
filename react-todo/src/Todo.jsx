@@ -8,6 +8,9 @@ function Todo(){
         setTask(t=>setTask(textTask));
         setTaskArr(arr=>[...taskArr,textTask]);
     }
+    function handleRemove(index){
+        setTaskArr(r=>taskArr.filter((_, i) => i !== index));
+    }
     return(
         <>
             <div className="main-container">
@@ -21,7 +24,7 @@ function Todo(){
                         {taskArr.map((element,index)=>
                         <li className="list-elements" key={index}>
                             {element}
-                            <button className="remove-button">X</button>
+                            <button className="remove-button" onClick={()=>handleRemove(index)}>X</button>
                         </li>)}
                         </ul>
                 </div>
